@@ -19,6 +19,7 @@
 .containerImg{
   overflow: hidden;
   cursor: pointer;
+  position: relative;
 }
 img{
   object-fit: cover;
@@ -38,6 +39,13 @@ img{
 .containerImg:hover img {
     transform: scale(1.1);
 }
+.containerImg a{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
 
 </style>
 <script>
@@ -46,33 +54,32 @@ img{
     • Responsive
     • Insert CSS
     • Argument pour height et  margin
-    • Rajouter les liens
-
 */
 
  // Stuff to do as soon as the DOM is ready
+
  img = [
-     "http://lorempixel.com/output/animals-q-c-640-480-2.jpg",
-     "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Pelican_lakes_entrance02.jpg/220px-Pelican_lakes_entrance02.jpg",
-     "http://www.jqueryscript.net/images/Simplest-Responsive-jQuery-Image-Lightbox-Plugin-simple-lightbox.jpg",
-     "https://static.pexels.com/photos/147503/pexels-photo-147503.jpeg",
-     "https://static.pexels.com/photos/355465/pexels-photo-355465.jpeg",
-     "https://static.pexels.com/photos/408108/pexels-photo-408108.jpeg",
-     "https://static.pexels.com/photos/274769/pexels-photo-274769.jpeg",
-     "http://lorempixel.com/output/animals-q-c-640-480-2.jpg",
-     "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Pelican_lakes_entrance02.jpg/220px-Pelican_lakes_entrance02.jpg",
-     "http://www.jqueryscript.net/images/Simplest-Responsive-jQuery-Image-Lightbox-Plugin-simple-lightbox.jpg",
-     "https://static.pexels.com/photos/147503/pexels-photo-147503.jpeg",
-     "https://static.pexels.com/photos/355465/pexels-photo-355465.jpeg",
-     "https://static.pexels.com/photos/408108/pexels-photo-408108.jpeg",
-     "https://static.pexels.com/photos/274769/pexels-photo-274769.jpeg",
-     "http://lorempixel.com/output/animals-q-c-640-480-2.jpg",
-     "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Pelican_lakes_entrance02.jpg/220px-Pelican_lakes_entrance02.jpg",
-     "http://www.jqueryscript.net/images/Simplest-Responsive-jQuery-Image-Lightbox-Plugin-simple-lightbox.jpg",
-     "https://static.pexels.com/photos/147503/pexels-photo-147503.jpeg",
-     "https://static.pexels.com/photos/355465/pexels-photo-355465.jpeg",
-     "https://static.pexels.com/photos/408108/pexels-photo-408108.jpeg",
-     "https://static.pexels.com/photos/274769/pexels-photo-274769.jpeg",
+     ["http://lorempixel.com/output/animals-q-c-640-480-2.jpg","www.google.com"],
+     ["https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Pelican_lakes_entrance02.jpg/220px-Pelican_lakes_entrance02.jpg","www.google.com"],
+     ["http://www.jqueryscript.net/images/Simplest-Responsive-jQuery-Image-Lightbox-Plugin-simple-lightbox.jpg","www.google.com"],
+     ["https://static.pexels.com/photos/147503/pexels-photo-147503.jpeg","www.google.com"],
+     ["https://static.pexels.com/photos/355465/pexels-photo-355465.jpeg","www.google.com"],
+     ["https://static.pexels.com/photos/408108/pexels-photo-408108.jpeg","www.google.com"],
+     ["https://static.pexels.com/photos/274769/pexels-photo-274769.jpeg","www.google.com"],
+     ["http://lorempixel.com/output/animals-q-c-640-480-2.jpg","www.google.com"],
+     ["https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Pelican_lakes_entrance02.jpg/220px-Pelican_lakes_entrance02.jpg","www.google.com"],
+     ["http://www.jqueryscript.net/images/Simplest-Responsive-jQuery-Image-Lightbox-Plugin-simple-lightbox.jpg","www.google.com"],
+     ["https://static.pexels.com/photos/147503/pexels-photo-147503.jpeg","www.google.com"],
+     ["https://static.pexels.com/photos/355465/pexels-photo-355465.jpeg","www.google.com"],
+     ["https://static.pexels.com/photos/408108/pexels-photo-408108.jpeg","www.google.com"],
+     ["https://static.pexels.com/photos/274769/pexels-photo-274769.jpeg","www.google.com"],
+     ["http://lorempixel.com/output/animals-q-c-640-480-2.jpg","www.google.com"],
+     ["https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Pelican_lakes_entrance02.jpg/220px-Pelican_lakes_entrance02.jpg","www.google.com"],
+     ["http://www.jqueryscript.net/images/Simplest-Responsive-jQuery-Image-Lightbox-Plugin-simple-lightbox.jpg","www.google.com"],
+     ["https://static.pexels.com/photos/147503/pexels-photo-147503.jpeg","www.google.com"],
+     ["https://static.pexels.com/photos/355465/pexels-photo-355465.jpeg","www.google.com"],
+     ["https://static.pexels.com/photos/408108/pexels-photo-408108.jpeg","www.google.com"],
+     ["https://static.pexels.com/photos/274769/pexels-photo-274769.jpeg","www.google.com"],
  ]
 
  patterns = {
@@ -113,7 +120,9 @@ function populatePattern(pattern){
         $.each(patterns[rand],function(index,value){
             $('.rowImg:last').append('<div class="colImg" style="width: '+value.width+'%"></div>');
             for(i = 1; i <= value.number; i++){
-                $('.colImg:last').append('<div class="containerImg" style="height: '+100/value.number+'%"><img  src="'+img.shift()+'"/></div>');
+                var data = img.shift();
+                $('.colImg:last').append('<div class="containerImg" style="height: '+100/value.number+'%"><img  src="'+data[0]+'"/></div>');
+                if(data[1] != undefined) $('.containerImg:last').append('<a href="'+data[1]+'"></a>');
             }
         });
     } else {

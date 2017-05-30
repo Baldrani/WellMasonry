@@ -41,73 +41,100 @@ img{
 
 </style>
 <script>
-$(document).ready(function() {
-     // Stuff to do as soon as the DOM is ready
-     img = [
-         "http://lorempixel.com/output/animals-q-c-640-480-2.jpg",
-         "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Pelican_lakes_entrance02.jpg/220px-Pelican_lakes_entrance02.jpg",
-         "http://www.jqueryscript.net/images/Simplest-Responsive-jQuery-Image-Lightbox-Plugin-simple-lightbox.jpg",
-         "https://static.pexels.com/photos/147503/pexels-photo-147503.jpeg",
-         "https://static.pexels.com/photos/355465/pexels-photo-355465.jpeg",
-         "https://static.pexels.com/photos/408108/pexels-photo-408108.jpeg",
-         "https://static.pexels.com/photos/274769/pexels-photo-274769.jpeg",
-         "http://lorempixel.com/output/animals-q-c-640-480-2.jpg",
-         "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Pelican_lakes_entrance02.jpg/220px-Pelican_lakes_entrance02.jpg",
-         "http://www.jqueryscript.net/images/Simplest-Responsive-jQuery-Image-Lightbox-Plugin-simple-lightbox.jpg",
-         "https://static.pexels.com/photos/147503/pexels-photo-147503.jpeg",
-         "https://static.pexels.com/photos/355465/pexels-photo-355465.jpeg",
-         "https://static.pexels.com/photos/408108/pexels-photo-408108.jpeg",
-         "https://static.pexels.com/photos/274769/pexels-photo-274769.jpeg",
-         "http://lorempixel.com/output/animals-q-c-640-480-2.jpg",
-         "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Pelican_lakes_entrance02.jpg/220px-Pelican_lakes_entrance02.jpg",
-         "http://www.jqueryscript.net/images/Simplest-Responsive-jQuery-Image-Lightbox-Plugin-simple-lightbox.jpg",
-         "https://static.pexels.com/photos/147503/pexels-photo-147503.jpeg",
-         "https://static.pexels.com/photos/355465/pexels-photo-355465.jpeg",
-         "https://static.pexels.com/photos/408108/pexels-photo-408108.jpeg",
-         "https://static.pexels.com/photos/274769/pexels-photo-274769.jpeg",
-     ]
+/* TODO
+    • Ratio images
+    • Responsive
+    • Insert CSS
+    • Argument pour height et  margin
+    • Rajouter les liens
 
-     patterns = {
-         1 : {
-             1 : {"width":"25","number":"2"},
-             2 : {"width":"45","number":"2"},
-             3 : {"width":"30","number":"1"}
-         },
-         2 : {
-           1 : {"width":"33","number":"1"},
-           2 : {"width":"33","number":"1"},
-           3 : {"width":"33","number":"1"}
-         },
-         3 : {
-             1 : {"width":"55","number":"1"},
-             2 : {"width":"15","number":"2"},
-             3 : {"width":"30","number":"1"}
-         },
-         4 : {
-             1 : {"width":"50", "number":"1"},
-             2 : {"width":"50", "number":"1"}
-         },
-         5 : {
-             1 : {"width":"25", "number":"2"},
-             2 : {"width":"45", "number":"1"},
-             3 : {"width":"30", "number":"3"}
-         },
-         6 : {
-             1 : {"width":"35", "number":"2"},
-             2 : {"width":"65", "number":"1"},
-         }
+*/
+
+ // Stuff to do as soon as the DOM is ready
+ img = [
+     "http://lorempixel.com/output/animals-q-c-640-480-2.jpg",
+     "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Pelican_lakes_entrance02.jpg/220px-Pelican_lakes_entrance02.jpg",
+     "http://www.jqueryscript.net/images/Simplest-Responsive-jQuery-Image-Lightbox-Plugin-simple-lightbox.jpg",
+     "https://static.pexels.com/photos/147503/pexels-photo-147503.jpeg",
+     "https://static.pexels.com/photos/355465/pexels-photo-355465.jpeg",
+     "https://static.pexels.com/photos/408108/pexels-photo-408108.jpeg",
+     "https://static.pexels.com/photos/274769/pexels-photo-274769.jpeg",
+     "http://lorempixel.com/output/animals-q-c-640-480-2.jpg",
+     "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Pelican_lakes_entrance02.jpg/220px-Pelican_lakes_entrance02.jpg",
+     "http://www.jqueryscript.net/images/Simplest-Responsive-jQuery-Image-Lightbox-Plugin-simple-lightbox.jpg",
+     "https://static.pexels.com/photos/147503/pexels-photo-147503.jpeg",
+     "https://static.pexels.com/photos/355465/pexels-photo-355465.jpeg",
+     "https://static.pexels.com/photos/408108/pexels-photo-408108.jpeg",
+     "https://static.pexels.com/photos/274769/pexels-photo-274769.jpeg",
+     "http://lorempixel.com/output/animals-q-c-640-480-2.jpg",
+     "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Pelican_lakes_entrance02.jpg/220px-Pelican_lakes_entrance02.jpg",
+     "http://www.jqueryscript.net/images/Simplest-Responsive-jQuery-Image-Lightbox-Plugin-simple-lightbox.jpg",
+     "https://static.pexels.com/photos/147503/pexels-photo-147503.jpeg",
+     "https://static.pexels.com/photos/355465/pexels-photo-355465.jpeg",
+     "https://static.pexels.com/photos/408108/pexels-photo-408108.jpeg",
+     "https://static.pexels.com/photos/274769/pexels-photo-274769.jpeg",
+ ]
+
+ patterns = {
+     1 : {
+         1 : {"width":"25","number":"2"},
+         2 : {"width":"45","number":"2"},
+         3 : {"width":"30","number":"1"}
+     },
+     2 : {
+       1 : {"width":"33.33","number":"1"},
+       2 : {"width":"33.33","number":"1"},
+       3 : {"width":"33.33","number":"1"}
+     },
+     3 : {
+         1 : {"width":"55","number":"1"},
+         2 : {"width":"15","number":"2"},
+         3 : {"width":"30","number":"1"}
+     },
+     4 : {
+         1 : {"width":"50", "number":"1"},
+         2 : {"width":"50", "number":"1"}
+     },
+     5 : {
+         1 : {"width":"25", "number":"2"},
+         2 : {"width":"45", "number":"1"},
+         3 : {"width":"30", "number":"3"}
+     },
+     6 : {
+         1 : {"width":"35", "number":"2"},
+         2 : {"width":"65", "number":"1"},
      }
+ }
 
+function populatePattern(pattern){
+    var rand = Math.floor((Math.random() * Object.keys(patterns).length + 1));
+    if(rand != $('.rowImg:last').data('index')){
+        $('body').append('<div class="rowImg" data-index="'+rand+'"></div>');
+        $.each(patterns[rand],function(index,value){
+            $('.rowImg:last').append('<div class="colImg" style="width: '+value.width+'%"></div>');
+            for(i = 1; i <= value.number; i++){
+                $('.colImg:last').append('<div class="containerImg" style="height: '+100/value.number+'%"><img  src="'+img.shift()+'"/></div>');
+            }
+        });
+    } else {
+        populatePattern();
+    }
+}
 
-     $.each(patterns,function(index, pattern){
-         $('body').append('<div class="rowImg" data-index="'+index+'"></div>');
-         $.each(pattern,function(index,value){
-             $('.rowImg:last').append('<div class="colImg" style="width: '+value.width+'%"></div>');
-             for(i = 1; i <= value.number; i++){
-                 $('.colImg:last').append('<div class="containerImg" style="height: '+100/value.number+'%"><img  src="'+img.shift()+'"/></div>');
-             }
-         });
-     });
+$(document).ready(function() {
+     //Self invoking pattern
+     (function(){
+         populatePattern();
+         populatePattern();
+         populatePattern();
+         populatePattern();
+         populatePattern();
+         populatePattern();
+         populatePattern();
+         populatePattern();
+         populatePattern();
+     })();
 });
+
 
 </script>

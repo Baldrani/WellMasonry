@@ -54,81 +54,152 @@ img{
     • Responsive
     • Insert CSS
     • Argument pour height et  margin
+    * Déterminer les x premiers patterns
+    * Regler problème de troue
 */
 
- // Stuff to do as soon as the DOM is ready
-
- img = [
-     ["http://lorempixel.com/output/animals-q-c-640-480-2.jpg","www.google.com"],
-     ["https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Pelican_lakes_entrance02.jpg/220px-Pelican_lakes_entrance02.jpg","www.google.com"],
-     ["http://www.jqueryscript.net/images/Simplest-Responsive-jQuery-Image-Lightbox-Plugin-simple-lightbox.jpg","www.google.com"],
-     ["https://static.pexels.com/photos/147503/pexels-photo-147503.jpeg","www.google.com"],
-     ["https://static.pexels.com/photos/355465/pexels-photo-355465.jpeg","www.google.com"],
-     ["https://static.pexels.com/photos/408108/pexels-photo-408108.jpeg","www.google.com"],
-     ["https://static.pexels.com/photos/274769/pexels-photo-274769.jpeg","www.google.com"],
-     ["http://lorempixel.com/output/animals-q-c-640-480-2.jpg","www.google.com"],
-     ["https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Pelican_lakes_entrance02.jpg/220px-Pelican_lakes_entrance02.jpg","www.google.com"],
-     ["http://www.jqueryscript.net/images/Simplest-Responsive-jQuery-Image-Lightbox-Plugin-simple-lightbox.jpg","www.google.com"],
-     ["https://static.pexels.com/photos/147503/pexels-photo-147503.jpeg","www.google.com"],
-     ["https://static.pexels.com/photos/355465/pexels-photo-355465.jpeg","www.google.com"],
-     ["https://static.pexels.com/photos/408108/pexels-photo-408108.jpeg","www.google.com"],
-     ["https://static.pexels.com/photos/274769/pexels-photo-274769.jpeg","www.google.com"],
-     ["http://lorempixel.com/output/animals-q-c-640-480-2.jpg","www.google.com"],
-     ["https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Pelican_lakes_entrance02.jpg/220px-Pelican_lakes_entrance02.jpg","www.google.com"],
-     ["http://www.jqueryscript.net/images/Simplest-Responsive-jQuery-Image-Lightbox-Plugin-simple-lightbox.jpg","www.google.com"],
-     ["https://static.pexels.com/photos/147503/pexels-photo-147503.jpeg","www.google.com"],
-     ["https://static.pexels.com/photos/355465/pexels-photo-355465.jpeg","www.google.com"],
-     ["https://static.pexels.com/photos/408108/pexels-photo-408108.jpeg","www.google.com"],
-     ["https://static.pexels.com/photos/274769/pexels-photo-274769.jpeg","www.google.com"],
- ]
 
  patterns = {
      1 : {
-         1 : {"width":"25","number":"2"},
-         2 : {"width":"45","number":"2"},
-         3 : {"width":"30","number":"1"}
+         "nbImg": "2",
+         "pattern": {
+             1 : {"width":"50", "number":"1"},
+             2 : {"width":"50", "number":"1"}
+         }
      },
      2 : {
-       1 : {"width":"33.33","number":"1"},
-       2 : {"width":"33.33","number":"1"},
-       3 : {"width":"33.33","number":"1"}
+         "nbImg": "3",
+         "pattern": {
+             1 : {"width":"33.33","number":"1"},
+             2 : {"width":"33.33","number":"1"},
+             3 : {"width":"33.33","number":"1"}
+         }
      },
      3 : {
-         1 : {"width":"55","number":"1"},
-         2 : {"width":"15","number":"2"},
-         3 : {"width":"30","number":"1"}
+         "nbImg": "3",
+         "pattern": {
+             1 : {"width":"35", "number":"2"},
+             2 : {"width":"65", "number":"1"}
+         }
+
      },
      4 : {
-         1 : {"width":"50", "number":"1"},
-         2 : {"width":"50", "number":"1"}
+         "nbImg": "4",
+         "pattern": {
+             1 : {"width":"55","number":"1"},
+             2 : {"width":"15","number":"2"},
+             3 : {"width":"30","number":"1"}
+         }
      },
      5 : {
-         1 : {"width":"25", "number":"2"},
-         2 : {"width":"45", "number":"1"},
-         3 : {"width":"30", "number":"3"}
+         "nbImg": "5",
+         "pattern": {
+             1 : {"width":"25", "number":"2"},
+             2 : {"width":"45", "number":"1"},
+             3 : {"width":"30", "number":"3"}
+         }
      },
      6 : {
-         1 : {"width":"35", "number":"2"},
-         2 : {"width":"65", "number":"1"},
+         "nbImg": "5",
+         "pattern" : {
+             1 : {"width":"25","number":"2"},
+             2 : {"width":"45","number":"2"},
+             3 : {"width":"30","number":"1"}
+            }
      }
  }
+
 
 function populatePattern(pattern){
     var rand = Math.floor((Math.random() * Object.keys(patterns).length + 1));
     if(rand != $('.rowImg:last').data('index')){
-        $('body').append('<div class="rowImg" data-index="'+rand+'"></div>');
-        $.each(patterns[rand],function(index,value){
+        $('#content').append('<div class="rowImg" data-index="'+rand+'" data-nbimg="'+patterns[rand].nbImg+'"></div>');
+        $.each(patterns[rand].pattern,function(index,value){
             $('.rowImg:last').append('<div class="colImg" style="width: '+value.width+'%"></div>');
             for(i = 1; i <= value.number; i++){
                 var data = img.shift();
-                $('.colImg:last').append('<div class="containerImg" style="height: '+100/value.number+'%"><img  src="'+data[0]+'"/></div>');
+                $('.colImg:last').append('<div class="containerImg" style="height: '+100/value.number+'%"></div>');
+                if(data[0] != undefined) $('.containerImg:last').append('<img src="'+data[0]+'"/>');
                 if(data[1] != undefined) $('.containerImg:last').append('<a href="'+data[1]+'"></a>');
             }
         });
     } else {
         populatePattern();
     }
+    $('.rowImg').each(function(){
+        if($(this).find('img').length < $(this).data('nbimg')){
+            $(this).remove();
+        }
+    });
 }
+
+var img = [];
+@foreach($medias as $media)
+img.push(["{{$media->fullsize_url}}","/{{$mediaType}}/{{$media->id}}"])
+@endforeach
+
+$(document).ready(function() {
+    while(img.length >= 0){
+        populatePattern();
+    }
+});
+
+var processing;
+$(document).scroll(function(e){
+
+       if (processing)
+           return false;
+
+       if ($(window).scrollTop() >= ($(document).height() - $(window).height())*0.9){
+            processing = true;
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: '/media/loadMore',
+                data: {index: $('.containerImg img').length + img.length, type: '{{$mediaType}}'},
+                type: 'POST',
+                success: function(datas){
+                    $.each(datas,function(index,data){
+                        img.push([data.fullsize_url,"/{{$mediaType}}/"+data.id])
+                    });
+                    populatePattern();
+                    processing = false;
+                    $('.rowImg').each(function(){
+                        if($(this).find('img').length < $(this).data('nbimg')){
+                            $(this).remove();
+                        }
+                    });
+                }
+            })
+       }
+});
+
+img = [
+    ["http://lorempixel.com/output/animals-q-c-640-480-2.jpg","www.google.com"],
+    ["https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Pelican_lakes_entrance02.jpg/220px-Pelican_lakes_entrance02.jpg","www.google.com"],
+    ["http://www.jqueryscript.net/images/Simplest-Responsive-jQuery-Image-Lightbox-Plugin-simple-lightbox.jpg","www.google.com"],
+    ["https://static.pexels.com/photos/147503/pexels-photo-147503.jpeg","www.google.com"],
+    ["https://static.pexels.com/photos/355465/pexels-photo-355465.jpeg","www.google.com"],
+    ["https://static.pexels.com/photos/408108/pexels-photo-408108.jpeg","www.google.com"],
+    ["https://static.pexels.com/photos/274769/pexels-photo-274769.jpeg","www.google.com"],
+    ["http://lorempixel.com/output/animals-q-c-640-480-2.jpg","www.google.com"],
+    ["https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Pelican_lakes_entrance02.jpg/220px-Pelican_lakes_entrance02.jpg","www.google.com"],
+    ["http://www.jqueryscript.net/images/Simplest-Responsive-jQuery-Image-Lightbox-Plugin-simple-lightbox.jpg","www.google.com"],
+    ["https://static.pexels.com/photos/147503/pexels-photo-147503.jpeg","www.google.com"],
+    ["https://static.pexels.com/photos/355465/pexels-photo-355465.jpeg","www.google.com"],
+    ["https://static.pexels.com/photos/408108/pexels-photo-408108.jpeg","www.google.com"],
+    ["https://static.pexels.com/photos/274769/pexels-photo-274769.jpeg","www.google.com"],
+    ["http://lorempixel.com/output/animals-q-c-640-480-2.jpg","www.google.com"],
+    ["https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Pelican_lakes_entrance02.jpg/220px-Pelican_lakes_entrance02.jpg","www.google.com"],
+    ["http://www.jqueryscript.net/images/Simplest-Responsive-jQuery-Image-Lightbox-Plugin-simple-lightbox.jpg","www.google.com"],
+    ["https://static.pexels.com/photos/147503/pexels-photo-147503.jpeg","www.google.com"],
+    ["https://static.pexels.com/photos/355465/pexels-photo-355465.jpeg","www.google.com"],
+    ["https://static.pexels.com/photos/408108/pexels-photo-408108.jpeg","www.google.com"],
+    ["https://static.pexels.com/photos/274769/pexels-photo-274769.jpeg","www.google.com"],
+]
 
 $(document).ready(function() {
      //Self invoking pattern
@@ -144,6 +215,5 @@ $(document).ready(function() {
          populatePattern();
      })();
 });
-
 
 </script>
